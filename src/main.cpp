@@ -33,25 +33,14 @@ void setup() {
     touchControllerDriver.init();
 
     delay(1000);
-
-    if (touchControllerDriver.isTouched()) {
-        Point touchPoint = touchControllerDriver.getTouchedPoint();
-
-        int touchCoordinateX = map(touchPoint.coordinateY, 200, 3800, 1, display.getScreenHeight());
-        int touchCoordinateY = map(touchPoint.coordinateX, 240, 3700, 1, display.getScreenWidth());
-
-        Serial.println("Touch detected during setup");
-        printTouchToSerial(touchCoordinateX, touchCoordinateY, touchPoint.pressureZ);
-    }
-    Serial.println("Leaving setup");
 }
 
 void loop() {
-    /*if (touch.isTouched()) {
-        TS_Point point = touch.getTouchedPoint();
-        int touchCoordinateX = map(point.y, 200, 3800, 1, display.getScreenHeight());
-        int touchCoordinateY = map(point.x, 240, 3700, 1, display.getScreenWidth());
-        int touchCoordinateZ = point.z;
+    if (touchControllerDriver.isTouched()) {
+        Point point = touchControllerDriver.getTouchedPoint();
+        int touchCoordinateX = map(point.coordinateX, 200, 3800, 1, display.getScreenHeight());
+        int touchCoordinateY = map(point.coordinateY, 240, 3700, 1, display.getScreenWidth());
+        int touchCoordinateZ = point.pressureZ;
 
         display.printLine(
             "X = " + String(touchCoordinateX)
@@ -61,5 +50,5 @@ void loop() {
         printTouchToSerial(touchCoordinateX, touchCoordinateY, touchCoordinateZ);
     }
 
-    delay(100);*/
+    delay(100);
 }

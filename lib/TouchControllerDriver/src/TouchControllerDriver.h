@@ -8,9 +8,9 @@
 
 class TouchControllerDriver {
     public:
-        static TouchDriverInterface& getInstance(const PinConfig& pinConfig); // Returns a reference
+        static TouchDriverInterface& getInstance(const PinConfig& pinConfig);
 
     private:
-        TouchControllerDriver() {} // Private constructor
-        static std::unique_ptr<TouchDriverInterface> instance; // Static member
+        TouchControllerDriver() {}
+        static std::unique_ptr<TouchDriverInterface> instance;
 };

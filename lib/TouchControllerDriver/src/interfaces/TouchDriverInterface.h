@@ -4,7 +4,6 @@
 #include "../dto/PinConfig/PinConfig.h"
 #include "../dto/Point/Point.h"
 
-// This class is an interface for touch drivers
 class TouchDriverInterface {
     public:
         virtual void init() = 0;
