@@ -16,7 +16,6 @@
 #define TFT_CS   15  // Chip select control pin
 #define TFT_DC   2  // Data Command control pin
 #define TFT_RST  -1  // Reset pin (could connect to RST pin)
-#define TOUCH_CS 33
 
 #define TFT_BL 27  // LED back-light control pin
 #define TFT_BACKLIGHT_ON HIGH  // Level to turn ON back-light (HIGH or LOW)
