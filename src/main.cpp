@@ -1,19 +1,20 @@
 #include "Arduino.h"
 #include "ST7789DisplayDriver.h"
-#include "XPT2046TouchDriver.h"
-
-ST7789DisplayDriver display;
-XPT2046TouchDriver touch = XPT2046TouchDriver(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS, XPT2046_IRQ, HSPI);
+#include "TouchControllerDriver.h"
 
 #define FONT_SIZE 2
 
-void printTouchToSerial(int touchX, int touchY, int touchZ) {
+ST7789DisplayDriver display;
+PinConfig pinConfig(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS, XPT2046_IRQ, HSPI);
+TouchDriverInterface& touchControllerDriver = TouchControllerDriver::getInstance(pinConfig);
+
+void printTouchToSerial(int touchX, int touchY, int pressureZ) {
     Serial.print("X = ");
     Serial.print(touchX);
     Serial.print(" | Y = ");
     Serial.print(touchY);
     Serial.print(" | Pressure = ");
-    Serial.print(touchZ);
+    Serial.print(pressureZ);
     Serial.println();
 }
 
@@ -29,12 +30,25 @@ void setup() {
     display.drawCentreString("Hello, world!", centerCoordinateX, 30, FONT_SIZE);
     display.drawCentreString("Touch screen to test", centerCoordinateX, centerCoordinateY, FONT_SIZE);
 
-    touch.init();
+    touchControllerDriver.init();
+
+    delay(1000);
+
+    if (touchControllerDriver.isTouched()) {
+        Point touchPoint = touchControllerDriver.getTouchedPoint();
+
+        int touchCoordinateX = map(touchPoint.coordinateY, 200, 3800, 1, display.getScreenHeight());
+        int touchCoordinateY = map(touchPoint.coordinateX, 240, 3700, 1, display.getScreenWidth());
+
+        Serial.println("Touch detected during setup");
+        printTouchToSerial(touchCoordinateX, touchCoordinateY, touchPoint.pressureZ);
+    }
+    Serial.println("Leaving setup");
 }
 
 void loop() {
-    if (touch.isTirqTouched() && touch.isTouched()) {
-        TS_Point point = touch.getPoint();
+    /*if (touch.isTouched()) {
+        TS_Point point = touch.getTouchedPoint();
         int touchCoordinateX = map(point.y, 200, 3800, 1, display.getScreenHeight());
         int touchCoordinateY = map(point.x, 240, 3700, 1, display.getScreenWidth());
         int touchCoordinateZ = point.z;
@@ -47,5 +61,5 @@ void loop() {
         printTouchToSerial(touchCoordinateX, touchCoordinateY, touchCoordinateZ);
     }
 
-    delay(100);
+    delay(100);*/
 }
