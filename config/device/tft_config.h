@@ -17,6 +17,8 @@
 #define TFT_DC   2  // Data Command control pin
 #define TFT_RST  -1  // Reset pin (could connect to RST pin)
 
+#define TOUCH_CS XPT2046_CS     // Chip select pin (T_CS); touch screen controller connected to gpio
+
 #define TFT_BL 27  // LED back-light control pin
 #define TFT_BACKLIGHT_ON HIGH  // Level to turn ON back-light (HIGH or LOW)
 #define TFT_INVERSION_OFF
