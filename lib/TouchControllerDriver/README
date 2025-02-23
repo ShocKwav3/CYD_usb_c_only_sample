@@ -1,0 +1,14 @@
+# TouchControllerDriver
+
+## Purpose
+
+The `TouchControllerDriver` component is designed to provide a unified interface for interacting with various touch controller drivers. This abstraction allows developers to work with different touch controllers without needing to modify their application code for each specific driver. By using this component, you can easily switch between different touch controllers by simply changing the underlying driver, without affecting the rest of your codebase.
+
+This approach was needed since the simulator of this project only supports capacitive touch and the actual device uses resistive touch. Hence, each having two different touch controllers. This componemt made writing a code that is generic and platform independant, possible.
+
+## Abstraction and Interface
+
+The `TouchControllerDriver` abstracts away the specifics of individual touch controller drivers by providing a common interface. This interface defines a set of methods that all touch controller drivers must implement. The module uses abstract factory, factory method and singleten pattern to achieve this abstraction. It allows to interact with the touch controllers through this interface, allowing for seamless integration and easy swapping of drivers.
+
+## Quirks
+    - Each driver has forward declaration in their header files. This is due to FT6206 and XPT2046 drviers having classes implemented with same name, leading to compile error. Classic embedded world.

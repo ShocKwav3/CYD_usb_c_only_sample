@@ -2,10 +2,10 @@
 
 #include "memory"
 #include "../../../interfaces/TouchDriverFactoryInterface.h"
-#include "../XPT2046TouchDriver.h"
+#include "../FT6206TouchDriver.h"
 
-class XPT2046TouchDriverFactory : public TouchDriverFactoryInterface {
+class FT6206TouchDriverFactory : public TouchDriverFactoryInterface {
     public:
         std::unique_ptr<TouchDriverInterface> createTouchDriver(const PinConfig& pinConfig) override;
-        ~XPT2046TouchDriverFactory() {}
+        ~FT6206TouchDriverFactory() {}
 };
