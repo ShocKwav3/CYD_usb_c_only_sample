@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "author": "Md Feroj Ahmod",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 19.2, "left": -139.16, "attrs": {} },
+    {
+      "type": "board-ili9341-cap-touch",
+      "id": "lcd1",
+      "top": -104.84,
+      "left": 86.02,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "lcd1:CS", "esp:15", "green", [ "v38.4", "h-153.6", "v-67.2" ] ],
+    [ "lcd1:RST", "esp:4", "cyan", [ "v48", "h-153.6", "v-105.6" ] ],
+    [ "lcd1:D/C", "esp:2", "yellow", [ "v67.2", "h-144", "v-105.6" ] ],
+    [ "lcd1:MOSI", "esp:23", "magenta", [ "v76.8", "h-144", "v-230.4" ] ],
+    [ "lcd1:SCK", "esp:18", "blue", [ "v86.4", "h-144", "v-172.8" ] ],
+    [ "lcd1:MISO", "esp:19", "orange", [ "v96", "h-153.6", "v-163.2" ] ],
+    [ "lcd1:SCL", "esp:22", "#8f4814", [ "v105.6", "h-153.6", "v-192" ] ],
+    [ "lcd1:SDA", "esp:21", "gray", [ "v115.2", "h-153.6", "v-192" ] ],
+    [ "lcd1:LED", "esp:5", "green", [ "v153.6", "h-182.4", "v-201.6" ] ]
+  ],
+  "dependencies": {}
+}
