@@ -6,5 +6,3 @@
 #define XPT2046_MISO TFT_MISO  // T_OUT
 #define XPT2046_CLK TFT_SCLK   // T_CLK
 #define XPT2046_CS 33          // T_CS
-
-
