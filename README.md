@@ -13,6 +13,8 @@ This project demonstrates how to use the CYD, USB-C only variant with resistive 
 ## Introduction
 This project aims to provide a simple and effective way to control a tft display using an ESP32 WROOM 32 microcontroller. It includes sample code and instructions to get started quickly. I used a CYD board with integreated 2.8inch display.
 
+Coding might not seem like what the embedded workd does it but I'm a software engineer. I can't help using patterns and such. Ofcourse, my use cases are smaller and won't do anything that drains resourses for little gain.
+
 ## Features
 - Interface with tft display
 - Display text and graphics
@@ -32,6 +34,8 @@ This project aims to provide a simple and effective way to control a tft display
     - `tft_eSPI`
     - `XPT2046_Touchscreen`
         - Needed specify url for this library because platformio did not this library in their repository since alpha
+    - `adafruit/Adafruit FT6206 Library``
+        - Used only for simulator since Wokwi only support capacitive touch
 
 ## Installation
 1. Clone the repository
@@ -66,3 +70,6 @@ This project aims to provide a simple and effective way to control a tft display
 ## Project specific quarks
 - ESP32WROOM32 board serial issue with tft_espi
     - tft_espi uses `Serial` for communincation. So does USB CDC. This leads to compile error. Could not solve it yet. For the moment, keeping `ARDUINO_USB_CDC_ON_BOOT` disabled. Any startup error can be seen in Wokwi terminal by launching the code in simulator.
+- Wokwi simulator
+    - Wokwi simulator does not support resistive touch, only capacitive touch. The solution I chose to use capacitive touch setup for simulator while device works with resistive touch. The touch controller is interface is used in code to abstract away the implementation details. The build system has two environtment and depending which environment it's being built for, appropriate touch controller is loaded. Checkout `TouchControllerDriver` in `lib` for more insight.
+    - For reason unknown, using tft_espi and adafruit 6206 capacitive touch library in same project when microcontroller is esp32-s3 makes Wokwi go to boot loop. So, the simulator is using generic esp32 which works. Hardware isn't too important for simulators. All we want to check is if our feature is working as expected. With the help of the abstracted code it was achieved and we can forget about the mismatch of device between real device and simulator.
