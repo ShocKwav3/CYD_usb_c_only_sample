@@ -1,11 +1,12 @@
 #include "Arduino.h"
 #include "ST7789DisplayDriver.h"
 #include "TouchControllerDriver.h"
+#include "../config/PinConfigDefaults.h"
 
 #define FONT_SIZE 2
 
 ST7789DisplayDriver display;
-PinConfig pinConfig(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS, XPT2046_IRQ, HSPI);
+PinConfig pinConfig(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS, XPT2046_IRQ, HSPI, FT6202_SDA, FT6202_SCL);
 TouchDriverInterface& touchControllerDriver = TouchControllerDriver::getInstance(pinConfig);
 
 void printTouchToSerial(int touchX, int touchY, int pressureZ) {
@@ -52,3 +53,7 @@ void loop() {
 
     delay(100);
 }
+
+//we need to rename getTouchedPoint -> getRawTouchedPoint
+//we need to have each drivers own mapping function
+//we need to define and implement rotation for FT6206

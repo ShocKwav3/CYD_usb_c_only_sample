@@ -1,18 +1,18 @@
 #pragma once
 
-#include "SPI.h"
+#include "Wire.h"
 #include "../../interfaces/TouchDriverInterface.h"
 
 //forward declaration due to third party library name conflict
 //See TouchControllerDriver dir readme for details
-class XPT2046_Touchscreen;
-class XPT2046TouchDriver : public TouchDriverInterface {
+class Adafruit_FT6206;
+
+class FT6206TouchDriver : public TouchDriverInterface {
 private:
-    SPIClass touchscreenSPI;
-    XPT2046_Touchscreen* touchscreen;
+    Adafruit_FT6206* touchscreen;
 
 public:
-    XPT2046TouchDriver(uint8_t clk, uint8_t miso, uint8_t mosi, uint8_t cs, uint8_t irq, uint8_t spiBus);
+    FT6206TouchDriver(uint8_t sda, uint8_t scl);
     void init() override;
     void setRotation(uint8_t rotation) override;
     bool isTouched() override;
