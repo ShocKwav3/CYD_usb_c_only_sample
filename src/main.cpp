@@ -6,8 +6,9 @@
 #define FONT_SIZE 2
 
 ST7789DisplayDriver display;
+DisplayConfig displayConfig(TFT_WIDTH, TFT_HEIGHT);
 PinConfig pinConfig(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS, XPT2046_IRQ, HSPI, FT6202_SDA, FT6202_SCL);
-TouchDriverInterface& touchControllerDriver = TouchControllerDriver::getInstance(pinConfig);
+TouchDriverInterface& touchControllerDriver = TouchControllerDriver::getInstance(pinConfig, displayConfig);
 
 void printTouchToSerial(int touchX, int touchY, int pressureZ) {
     Serial.print("X = ");
@@ -25,11 +26,15 @@ void setup() {
     display.init();
     display.setTextColor(ST7789DisplayDriver::Color::WHITE);
 
-    int centerCoordinateX = display.getScreenWidth() / 2;
+    /*int centerCoordinateX = display.getScreenWidth() / 2;
     int centerCoordinateY = display.getScreenHeight() / 2;
 
     display.drawCentreString("Hello, world!", centerCoordinateX, 30, FONT_SIZE);
-    display.drawCentreString("Touch screen to test", centerCoordinateX, centerCoordinateY, FONT_SIZE);
+    display.drawCentreString("Touch screen to test", centerCoordinateX, centerCoordinateY, FONT_SIZE);*/
+
+    display.setCursorPosition(15, 30);
+    display.printLine("Hello, world!");
+    display.printLine("Touch screen to test");
 
     touchControllerDriver.init();
 
@@ -39,21 +44,14 @@ void setup() {
 void loop() {
     if (touchControllerDriver.isTouched()) {
         Point point = touchControllerDriver.getTouchedPoint();
-        int touchCoordinateX = map(point.coordinateX, 200, 3800, 1, display.getScreenHeight());
-        int touchCoordinateY = map(point.coordinateY, 240, 3700, 1, display.getScreenWidth());
-        int touchCoordinateZ = point.pressureZ;
 
         display.printLine(
-            "X = " + String(touchCoordinateX)
-            + " | Y = " + String(touchCoordinateY)
-            + " | Pressure = " + String(touchCoordinateZ)
+            "X = " + String(point.coordinateX)
+            + " | Y = " + String(point.coordinateY)
+            + " | Pressure = " + String(point.pressureZ)
         );
-        printTouchToSerial(touchCoordinateX, touchCoordinateY, touchCoordinateZ);
+        printTouchToSerial(point.coordinateX, point.coordinateY, point.pressureZ);
     }
 
     delay(100);
 }
-
-//we need to rename getTouchedPoint -> getRawTouchedPoint
-//we need to have each drivers own mapping function
-//we need to define and implement rotation for FT6206
