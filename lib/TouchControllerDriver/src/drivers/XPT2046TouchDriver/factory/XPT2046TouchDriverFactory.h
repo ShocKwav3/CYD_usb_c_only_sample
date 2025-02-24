@@ -6,6 +6,9 @@
 
 class XPT2046TouchDriverFactory : public TouchDriverFactoryInterface {
     public:
-        std::unique_ptr<TouchDriverInterface> createTouchDriver(const PinConfig& pinConfig) override;
+        std::unique_ptr<TouchDriverInterface> createTouchDriver(
+            const PinConfig& pinConfig,
+            const DisplayConfig& displayConfig
+        ) override;
         ~XPT2046TouchDriverFactory() {}
 };
