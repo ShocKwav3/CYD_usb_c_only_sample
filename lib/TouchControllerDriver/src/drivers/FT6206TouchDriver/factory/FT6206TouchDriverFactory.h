@@ -6,6 +6,9 @@
 
 class FT6206TouchDriverFactory : public TouchDriverFactoryInterface {
     public:
-        std::unique_ptr<TouchDriverInterface> createTouchDriver(const PinConfig& pinConfig) override;
+        std::unique_ptr<TouchDriverInterface> createTouchDriver(
+            const PinConfig& pinConfig,
+            const DisplayConfig& displayConfig
+        ) override;
         ~FT6206TouchDriverFactory() {}
 };
