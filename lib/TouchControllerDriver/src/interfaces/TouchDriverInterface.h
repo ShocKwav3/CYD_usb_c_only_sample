@@ -3,6 +3,7 @@
 #include "cstdint"
 #include "../dto/PinConfig/PinConfig.h"
 #include "../dto/Point/Point.h"
+#include "../dto/DisplayConfig/DisplayConfig.h"
 
 class TouchDriverInterface {
     public:

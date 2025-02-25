@@ -5,6 +5,9 @@
 
 class TouchDriverFactoryInterface {
     public:
-        virtual std::unique_ptr<TouchDriverInterface> createTouchDriver(const PinConfig& pinConfig) = 0;
+        virtual std::unique_ptr<TouchDriverInterface> createTouchDriver(
+            const PinConfig& pinConfig,
+            const DisplayConfig& displayConfig
+        ) = 0;
         virtual ~TouchDriverFactoryInterface() {}
 };
