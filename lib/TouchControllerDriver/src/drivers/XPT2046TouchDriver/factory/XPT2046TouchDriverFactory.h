@@ -1,10 +1,10 @@
 #pragma once
 
 #include "memory"
-#include "../../../interfaces/TouchDriverFactoryInterface.h"
+#include "../../../interfaces/TouchDriverAbstractFactoryInterface.h"
 #include "../XPT2046TouchDriver.h"
 
-class XPT2046TouchDriverFactory : public TouchDriverFactoryInterface {
+class XPT2046TouchDriverFactory : public TouchDriverAbstractFactoryInterface {
     public:
         std::unique_ptr<TouchDriverInterface> createTouchDriver(
             const PinConfig& pinConfig,
